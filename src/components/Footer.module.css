@@ -1,0 +1,32 @@
+.footer {
+  background-color: #D7A7AA; /* Brown color */
+  color: white;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: "Cursive", sans-serif;
+  margin-bottom: 15px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.list li:hover {
+  text-decoration: underline;
+}
+
+.bottomText {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}

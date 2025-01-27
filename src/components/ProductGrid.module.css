@@ -1,0 +1,115 @@
+/* General Styling */
+.productGrid {
+  padding: 60px 0 30px;
+}
+
+/* Filter Section */
+.filterSection {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.filterSection button {
+  margin-top: 8%;
+  margin-left: 8%;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filterSection button:hover {
+  background-color: #8a4b2f;
+  color: #fff;
+}
+
+.filterSection button:active {
+  transform: scale(0.95);
+}
+
+/* Product Grid */
+.productGrid .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 products per row */
+  gap: 20px; /* Spacing between products */
+}
+
+/* Product Card */
+.productCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Product Image */
+.productImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Product Details */
+.productDetails {
+  padding: 15px;
+  text-align: center;
+}
+
+.category {
+  font-size: 0.9rem;
+  color: gray;
+  margin-bottom: 5px;
+}
+
+.productName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #8a4b2f;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .row {
+    grid-template-columns: repeat(3, 1fr); /* 3 products per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+  }
+}
+
+@media (max-width: 576px) {
+  .row {
+    grid-template-columns: 1fr; /* 1 product per row */
+  }
+}

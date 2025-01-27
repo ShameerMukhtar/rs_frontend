@@ -1,0 +1,7 @@
+body{
+    background: #F7F5F2 !important;
+}
+@font-face {
+    font-family: "Futura";
+    src: url('/public/Fontfsmily/Futura\ Bold\ font.ttf');
+}
