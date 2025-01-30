@@ -120,7 +120,9 @@ const Header = () => {
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
+
+          {/* Profile Icon (Navigates to /login) */}
+          <IconButton color="inherit" onClick={() => navigate("/login")}>
             <AccountCircleIcon />
           </IconButton>
         </Box>
@@ -154,6 +156,9 @@ const Header = () => {
             </ListItem>
             <ListItem button onClick={() => navigate("/cart")}>
               <ListItemText primary="Cart" />
+            </ListItem>
+            <ListItem button onClick={() => navigate("/login")}>
+              <ListItemText primary="Login" />
             </ListItem>
           </List>
         </Box>

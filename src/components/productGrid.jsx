@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-
 import styles from "./ProductGrid.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -20,9 +19,9 @@ const ProductGrid = () => {
         const data = await response.json();
         setProducts(data.products); // Assuming API response has a "products" array
         setFilteredProducts(data.products); // Initially show all products
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -42,7 +41,7 @@ const ProductGrid = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className={styles.loading}>Loading products...</p>;
   }
 
   return (
@@ -58,30 +57,40 @@ const ProductGrid = () => {
         <button onClick={() => handleFilter("winter collection")}>
           Winter Collection
         </button>
+        <button onClick={() => handleFilter("spring collection")}>
+          Spring Collection
+        </button>
+        <button onClick={() => handleFilter("fall collection")}>
+          Fall Collection
+        </button>
       </div>
 
       {/* Product Grid */}
       <div className={styles.productGrid}>
         <div className="container">
           <div className={styles.row}>
-            {filteredProducts.map((product) => (
-              <div
-                className={styles.productCard}
-                key={product._id}
-                onClick={() => navigate(`/details/${product._id}`)}
-              >
-                <img
-                  src={product.images[0]}
-                  alt={product.title}
-                  className={styles.productImage}
-                />
-                <div className={styles.productDetails}>
-                  <span className={styles.category}>{product.category}</span>
-                  <h5 className={styles.productName}>{product.title}</h5>
-                  <p className={styles.price}>PKR {product.price}</p>
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <div
+                  className={styles.productCard}
+                  key={product._id}
+                  onClick={() => navigate(`/details/${product._id}`)}
+                >
+                  <img
+                    src={product.images[0]}
+                    alt={product.title}
+                    className={styles.productImage}
+                  />
+                  <div className={styles.productDetails}>
+                    <span className={styles.category}>{product.category}</span>
+                    <h5 className={styles.productName}>{product.title}</h5>
+                    <p className={styles.price}>PKR {product.price}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className={styles.noProducts}>No products to display</p>
+            )}
           </div>
         </div>
       </div>

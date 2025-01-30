@@ -19,39 +19,11 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CallIcon from "@mui/icons-material/Call";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import ReviewsTab from "./Reviews/Reviews";
+import Blogs from "./Blogs/Blogs";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-const products = [
-  {
-    id: 1,
-    name: "Product Name",
-    category: "Product Category",
-    price: "IDR XXX",
-    image: "/images/product.svg", // Replace with actual image URLs
-  },
-  {
-    id: 2,
-    name: "Product Name",
-    category: "Product Category",
-    price: "IDR XXX",
-    image: "/images/product.svg",
-  },
-  {
-    id: 3,
-    name: "Product Name",
-    category: "Product Category",
-    price: "IDR XXX",
-    image: "/images/product.svg",
-  },
-  {
-    id: 4,
-    name: "Product Name",
-    category: "Product Category",
-    price: "IDR XXX",
-    image: "/images/product.svg",
-  },
-];
+// Fetch latest 4 products from API
 
 const cardData = [
   {
@@ -85,6 +57,29 @@ const cardData = [
 ];
 
 function App() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchLatestProducts = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/product/latest-product"
+        );
+        const data = await response.json();
+        setProducts(data.products); // Store latest products in state
+      } catch (error) {
+        console.error("Error fetching latest products:", error);
+        setError("Failed to load products.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestProducts();
+  }, []);
+
   const navigate = useNavigate();
 
   return (
@@ -112,39 +107,55 @@ function App() {
         <Typography variant="h4" align="center" gutterBottom>
           THE BEST DRESS FOR THE BEST WOMAN
         </Typography>
-        <Grid container spacing={3}>
-          {products.map((product) => (
-            <Grid item xs={12} sm={6} md={3} key={product.id}>
-              <Card
-                sx={{
-                  borderRadius: "8px",
-                  boxShadow: "none",
-                  backgroundColor: "transparent",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="400"
-                  image={product.image}
-                  alt={product.name}
-                />
-                <CardContent
-                  sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+
+        {/* Handle Loading & Error */}
+        {loading ? (
+          <Typography variant="h6" align="center">
+            Loading latest products...
+          </Typography>
+        ) : error ? (
+          <Typography variant="h6" align="center" color="error">
+            {error}
+          </Typography>
+        ) : (
+          <Grid container spacing={3}>
+            {products.map((product) => (
+              <Grid item xs={12} sm={6} md={3} key={product._id}>
+                <Card
+                  sx={{
+                    borderRadius: "8px",
+                    boxShadow: "none",
+                    backgroundColor: "transparent",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate(`/details/${product._id}`)} // Navigate to product details page
                 >
-                  <Typography variant="caption" color="textSecondary">
-                    {product.category}
-                  </Typography>
-                  <Typography variant="h6" gutterBottom>
-                    {product.name}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {product.price}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                  <CardMedia
+                    component="img"
+                    height="400"
+                    image={product.images[0]} // Use product image from API
+                    alt={product.title}
+                  />
+                  <CardContent
+                    sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+                  >
+                    <Typography variant="caption" color="textSecondary">
+                      {product.category}
+                    </Typography>
+                    <Typography variant="h6" gutterBottom>
+                      {product.title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      PKR {product.price.toLocaleString()} {/* Format price */}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+
+        {/* "See More" Button */}
         <Box mt={4}>
           <Button
             onClick={() => navigate("/products")}
@@ -349,7 +360,7 @@ function App() {
       <section className="" style={{ marginTop: "100px" }}>
         <img src="/images/last.svg" style={{ width: "100%" }} />
       </section>
-      <ReviewsTab />
+      <Blogs />
       <Footer />
     </div>
   );
