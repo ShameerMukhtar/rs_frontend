@@ -11,6 +11,7 @@ import ProductDetails from "./components/ProductDetails";
 import Splash from "./components/Splash/Splash";
 import CompingSoon from "./components/Splash/ComingSoon";
 import Purchase from "./components/purchase";
+import Signup from "./components/Signup";
 const App = () => {
   return (
     <>
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           {/* <Route path="/register" element={<Register />} /> */}
         </Routes>
       </Router>

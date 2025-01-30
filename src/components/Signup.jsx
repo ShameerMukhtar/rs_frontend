@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // Ensure custom styling is applied
+import "./Login.css"; // Reuse the same CSS
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
 
   return (
@@ -13,8 +13,30 @@ const Login = () => {
 
         {/* Right Side Form */}
         <div className="col-md-6 form-side">
-          <h1>RAFIA AND SUMBAL</h1>
+          <h1>CREATE ACCOUNT</h1>
           <form>
+            <div className="mb-3">
+              <label htmlFor="firstname" className="form-label">
+                Firstname
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="firstname"
+                placeholder="Your Firstname"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="lastname" className="form-label">
+                Lastname
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="lastname"
+                placeholder="Your Lastname"
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 EMAIL
@@ -36,33 +58,18 @@ const Login = () => {
                 id="password"
                 placeholder="********"
               />
-              <ul className="password-criteria list-unstyled">
-                <li>✔ Minimum 8 characters</li>
-                <li>✔ Must contain at least 1 number</li>
-                <li>✔ Must contain at least 1 capital case and 1 small case</li>
-                <li>✔ Must contain at least 1 symbol</li>
-              </ul>
             </div>
             <button type="submit" className="btn btn-primary w-100">
-              SIGN IN
+              SIGN UP
             </button>
             <p className="mt-3 text-center">
-              <a
-                href="#"
-                className="forgot-password-link"
-                onClick={() => navigate("/forgot-password")}
-              >
-                Forgot your password?
-              </a>
-            </p>
-            <p className="mt-3 text-center">
-              Don’t have an account?{" "}
+              Already have an account?{" "}
               <a
                 href="#"
                 className="register-link"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/login")}
               >
-                Register here
+                Sign in here
               </a>
             </p>
           </form>
@@ -72,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
