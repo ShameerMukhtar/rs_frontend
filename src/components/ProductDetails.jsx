@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
   const [mainImage, setMainImage] = useState(null);
-  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false); // State for size guide modal
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -133,26 +133,34 @@ const ProductDetails = () => {
             </div>
             <p className={styles.description}>{product.description}</p>
 
-            <div className={styles.sizes}>
-              {["S", "M", "L"].map((size) => {
-                const isDisabled =
-                  (size === "S" && product.smallQuantity === 0) ||
-                  (size === "M" && product.mediumQuantity === 0) ||
-                  (size === "L" && product.largeQuantity === 0);
+            <div className={styles.sizesContainer}>
+              <div className={styles.sizes}>
+                {["S", "M", "L"].map((size) => {
+                  const isDisabled =
+                    (size === "S" && product.smallQuantity === 0) ||
+                    (size === "M" && product.mediumQuantity === 0) ||
+                    (size === "L" && product.largeQuantity === 0);
 
-                return (
-                  <button
-                    key={size}
-                    className={`${styles.sizeButton} ${
-                      selectedSize === size ? styles.selectedSize : ""
-                    } ${isDisabled ? styles.disabledSize : ""}`}
-                    onClick={() => handleSizeSelection(size)}
-                    disabled={isDisabled}
-                  >
-                    {size} {/* Size label remains for clarity */}
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      key={size}
+                      className={`${styles.sizeButton} ${
+                        selectedSize === size ? styles.selectedSize : ""
+                      } ${isDisabled ? styles.disabledSize : ""}`}
+                      onClick={() => handleSizeSelection(size)}
+                      disabled={isDisabled}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+              </div>
+              <button
+                className={styles.sizeGuideButton}
+                onClick={() => setShowSizeGuide(true)}
+              >
+                Size Guide
+              </button>
             </div>
 
             <div className={styles.quantitySection}>
