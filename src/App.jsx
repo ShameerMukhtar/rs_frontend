@@ -12,6 +12,7 @@ import Splash from "./components/Splash/Splash";
 import CompingSoon from "./components/Splash/ComingSoon";
 import Purchase from "./components/purchase";
 import Signup from "./components/Signup";
+import ForgotPassword from "./components/ForgetPassword";
 const App = () => {
   return (
     <>
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forget-password" element={<ForgotPassword />} />
           {/* <Route path="/register" element={<Register />} /> */}
         </Routes>
       </Router>

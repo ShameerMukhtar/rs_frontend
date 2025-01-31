@@ -50,7 +50,7 @@ const Login = () => {
               <a
                 href="#"
                 className="forgot-password-link"
-                onClick={() => navigate("/forgot-password")}
+                onClick={() => navigate("/forget-password")}
               >
                 Forgot your password?
               </a>
