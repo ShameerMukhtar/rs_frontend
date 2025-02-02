@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const navigate = useNavigate();
-
   const [cartItems, setCartItems] = useState([]);
 
   // Fetch cart data from sessionStorage
@@ -22,11 +21,18 @@ const Cart = () => {
     sessionStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // Handle updating the quantity
+  // Handle updating the quantity with stock limit check
   const handleQuantityChange = (itemId, itemSize, action) => {
     const updatedCart = cartItems.map((item) => {
       if (item.id === itemId && item.size === itemSize) {
-        if (action === "increase") {
+        const maxStock =
+          item.size === "S"
+            ? item.smallQuantity
+            : item.size === "M"
+            ? item.mediumQuantity
+            : item.largeQuantity;
+
+        if (action === "increase" && item.quantity < maxStock) {
           return { ...item, quantity: item.quantity + 1 };
         }
         if (action === "decrease" && item.quantity > 1) {
@@ -35,8 +41,22 @@ const Cart = () => {
       }
       return item;
     });
+
     setCartItems(updatedCart);
     sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  // Handle adding a note to a specific cart item
+  const handleNoteChange = (itemId, itemSize, note) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === itemId && item.size === itemSize) {
+        return { ...item, note };
+      }
+      return item;
+    });
+
+    setCartItems(updatedCart);
+    sessionStorage.setItem("cart", JSON.stringify(updatedCart)); // Save notes in sessionStorage
   };
 
   // Calculate the subtotal and total dynamically
@@ -44,7 +64,7 @@ const Cart = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
-  const total = subtotal; // You can apply discounts or additional logic here
+  const total = subtotal;
 
   return (
     <div className={`${styles.cartPage} container`}>
@@ -53,7 +73,7 @@ const Cart = () => {
         {/* Cart Items */}
         <div className="col-md-8">
           {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p className={styles.emptyCart}>Your cart is empty.</p>
           ) : (
             cartItems.map((item) => (
               <div
@@ -69,21 +89,16 @@ const Cart = () => {
                 </div>
                 <div className="col-md-6">
                   <h5 className={styles.productName}>{item.title}</h5>
-                  {item.originalPrice ? (
-                    <p className={styles.discountPrice}>
-                      <span className={styles.originalPrice}>
-                        {item.originalPrice}
-                      </span>{" "}
-                      <span className={styles.discount}>{item.discount}</span>{" "}
-                      <span>{item.price}</span>
-                    </p>
-                  ) : (
-                    <p>{item.price}</p>
-                  )}
+                  <p className={styles.price}>PKR {item.price}</p>
+                  <p className={styles.sizeText}>Size: {item.size}</p>
                   <input
                     type="text"
-                    placeholder="Eg: Please double check before packing."
+                    placeholder="Add note (optional)..."
                     className={styles.noteInput}
+                    value={item.note || ""}
+                    onChange={(e) =>
+                      handleNoteChange(item.id, item.size, e.target.value)
+                    }
                   />
                 </div>
                 <div className="col-md-3">
@@ -100,10 +115,28 @@ const Cart = () => {
                       onClick={() =>
                         handleQuantityChange(item.id, item.size, "increase")
                       }
+                      disabled={
+                        item.quantity >=
+                        (item.size === "S"
+                          ? item.smallQuantity
+                          : item.size === "M"
+                          ? item.mediumQuantity
+                          : item.largeQuantity)
+                      }
                     >
                       +
                     </button>
                   </div>
+                  {item.quantity >=
+                    (item.size === "S"
+                      ? item.smallQuantity
+                      : item.size === "M"
+                      ? item.mediumQuantity
+                      : item.largeQuantity) && (
+                    <p className={styles.stockWarning}>
+                      Max stock limit reached!
+                    </p>
+                  )}
                 </div>
                 <div className="col-md-1">
                   <p
@@ -124,10 +157,10 @@ const Cart = () => {
             <div className={styles.shoppingInfo}>
               <h5>SHOPPING INFO</h5>
               <p>
-                <span>Subtotal</span> <span>{subtotal}</span>
+                <span>Subtotal</span> <span>PKR {subtotal}</span>
               </p>
               <p>
-                <span>Total</span> <span>{total}</span>
+                <span>Total</span> <span>PKR {total}</span>
               </p>
               <button
                 className={styles.checkoutButton}

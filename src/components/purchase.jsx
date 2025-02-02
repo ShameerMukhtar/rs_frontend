@@ -43,6 +43,7 @@ function Purchase() {
     setLoading(true);
     setMessage("");
 
+    const token = sessionStorage.getItem("token");
     const payload = {
       cart: formData.cart,
       address: formData.address,
@@ -60,6 +61,7 @@ function Purchase() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
         },
         body: JSON.stringify(payload),
       });

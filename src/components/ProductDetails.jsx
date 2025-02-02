@@ -12,7 +12,8 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
   const [mainImage, setMainImage] = useState(null);
-  const [showSizeGuide, setShowSizeGuide] = useState(false); // State for size guide modal
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -37,27 +38,58 @@ const ProductDetails = () => {
   }, []);
 
   const handleSizeSelection = (size) => {
-    const isDisabled =
-      (size === "S" && product.smallQuantity === 0) ||
-      (size === "M" && product.mediumQuantity === 0) ||
-      (size === "L" && product.largeQuantity === 0);
+    const stock =
+      size === "S"
+        ? product.smallQuantity
+        : size === "M"
+        ? product.mediumQuantity
+        : product.largeQuantity;
 
-    if (!isDisabled) {
+    if (stock > 0) {
       setSelectedSize(size);
+      setQuantity(1); // Reset quantity when changing size
+      setErrorMessage(""); // Clear error message
     }
   };
 
   const handleQuantityChange = (type) => {
-    if (type === "increase") {
+    if (!selectedSize) {
+      setErrorMessage("Please select a size first.");
+      return;
+    }
+
+    const stock =
+      selectedSize === "S"
+        ? product.smallQuantity
+        : selectedSize === "M"
+        ? product.mediumQuantity
+        : product.largeQuantity;
+
+    if (type === "increase" && quantity < stock) {
       setQuantity(quantity + 1);
+      setErrorMessage("");
     } else if (type === "decrease" && quantity > 1) {
       setQuantity(quantity - 1);
+    } else if (type === "increase") {
+      setErrorMessage(`Only ${stock} items available in this size.`);
     }
   };
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert("Please select a size before adding to cart.");
+      setErrorMessage("Please select a size before adding to cart.");
+      return;
+    }
+
+    const stock =
+      selectedSize === "S"
+        ? product.smallQuantity
+        : selectedSize === "M"
+        ? product.mediumQuantity
+        : product.largeQuantity;
+
+    if (quantity > stock) {
+      setErrorMessage(`Only ${stock} items available in this size.`);
       return;
     }
 
@@ -66,6 +98,9 @@ const ProductDetails = () => {
       title: product.title,
       price: product.price,
       size: selectedSize,
+      largeQuantity: product.largeQuantity,
+      mediumQuantity: product.mediumQuantity,
+      smallQuantity: product.smallQuantity,
       quantity,
       image: product.images,
     };
@@ -79,22 +114,24 @@ const ProductDetails = () => {
     if (existingItemIndex !== -1) {
       updatedCart = [...cart];
       updatedCart[existingItemIndex].quantity += quantity;
-      alert("Product quantity updated in cart!");
     } else {
       updatedCart = [...cart, cartItem];
-      alert("Product added to cart!");
     }
 
     setCart(updatedCart);
     sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+    setErrorMessage(""); // ✅ Clear error message
+    setSelectedSize(null); // ✅ Reset selected size
+    setQuantity(1); // ✅ Reset quantity
+
+    // ✅ Use setTimeout to ensure navigation happens correctly
+    setTimeout(() => {
+      navigate("/cart");
+    }, 200); // Short delay ensures state updates properly
   };
 
   const handleCheckout = () => {
-    navigate("/checkout");
-  };
-
-  const handleThumbnailClick = (image) => {
-    setMainImage(image);
+    navigate("/purchase");
   };
 
   if (!product) return <p>Loading...</p>;
@@ -119,7 +156,7 @@ const ProductDetails = () => {
                   className={`${styles.thumbnail} ${
                     mainImage === image ? styles.selectedThumbnail : ""
                   }`}
-                  onClick={() => handleThumbnailClick(image)}
+                  onClick={() => setMainImage(image)}
                 />
               ))}
             </div>
@@ -129,17 +166,21 @@ const ProductDetails = () => {
             <span className={styles.category}>{product.category}</span>
             <h1 className={styles.title}>{product.title}</h1>
             <div className={styles.priceSection}>
-              <span className={styles.originalPrice}>PKR {product.price}</span>
+              <span className={styles.price}>PKR {product.price}</span>
             </div>
             <p className={styles.description}>{product.description}</p>
 
+            {/* Sizes Section */}
             <div className={styles.sizesContainer}>
               <div className={styles.sizes}>
                 {["S", "M", "L"].map((size) => {
-                  const isDisabled =
-                    (size === "S" && product.smallQuantity === 0) ||
-                    (size === "M" && product.mediumQuantity === 0) ||
-                    (size === "L" && product.largeQuantity === 0);
+                  const stock =
+                    size === "S"
+                      ? product.smallQuantity
+                      : size === "M"
+                      ? product.mediumQuantity
+                      : product.largeQuantity;
+                  const isDisabled = stock === 0;
 
                   return (
                     <button
@@ -163,6 +204,7 @@ const ProductDetails = () => {
               </button>
             </div>
 
+            {/* Quantity Section */}
             <div className={styles.quantitySection}>
               <span>Quantity</span>
               <div className={styles.quantityControls}>
@@ -176,6 +218,10 @@ const ProductDetails = () => {
               </div>
             </div>
 
+            {/* Error Message */}
+            {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
+
+            {/* Buttons */}
             <button
               onClick={handleAddToCart}
               className={styles.addToCartButton}
@@ -192,6 +238,7 @@ const ProductDetails = () => {
 
       <Footer />
 
+      {/* Size Guide Modal */}
       {showSizeGuide && (
         <div className={styles.sizeGuideOverlay}>
           <div className={styles.sizeGuideModal}>

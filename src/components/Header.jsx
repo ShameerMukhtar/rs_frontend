@@ -19,7 +19,7 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
-  const [cartCount, setCartCount] = useState(0); // State for cart count
+  const [cartCount, setCartCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +34,6 @@ const Header = () => {
   }, [prevScrollPos]);
 
   useEffect(() => {
-    // Fetch cart count from sessionStorage
     const storedCart = JSON.parse(sessionStorage.getItem("cart")) || [];
     setCartCount(storedCart.length);
   }, []);
@@ -47,13 +46,13 @@ const Header = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
+        backgroundColor: "transparent", // Fully transparent
+        backdropFilter: "blur(12px)", // Strong blur effect (glass effect)
         boxShadow: "none",
-        backdropFilter: "blur(10px)",
         zIndex: "100",
         transition: "top 0.3s",
         top: visible ? 0 : "-80px",
-        color: "black",
+        color: "#000", // Black text/icons
       }}
     >
       <Toolbar
@@ -61,6 +60,7 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          padding: "10px 20px",
         }}
       >
         {/* Left Side: Logo */}
@@ -71,6 +71,7 @@ const Header = () => {
             fontSize: "1.5rem",
             letterSpacing: "2px",
             cursor: "pointer",
+            color: "#000", // Black text
           }}
           onClick={() => navigate("/")}
         >
@@ -85,6 +86,7 @@ const Header = () => {
             textTransform: "uppercase",
             fontSize: "0.9rem",
             fontWeight: "bold",
+            color: "#000",
           }}
         >
           <span style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
@@ -101,15 +103,15 @@ const Header = () => {
         {/* Right Side: Icons */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <IconButton
-            color="inherit"
-            sx={{ marginRight: "1rem" }}
+            sx={{ marginRight: "1rem", color: "#000" }} // Black icon
             onClick={() => navigate("/cart")}
           >
             <Badge
               badgeContent={cartCount}
-              color="error"
               sx={{
                 "& .MuiBadge-badge": {
+                  backgroundColor: "#D7A7AA",
+                  color: "#fff",
                   fontSize: "0.75rem",
                   fontWeight: "bold",
                   minWidth: "20px",
@@ -121,8 +123,11 @@ const Header = () => {
             </Badge>
           </IconButton>
 
-          {/* Profile Icon (Navigates to /login) */}
-          <IconButton color="inherit" onClick={() => navigate("/login")}>
+          {/* Profile Icon */}
+          <IconButton
+            sx={{ color: "#000" }}
+            onClick={() => navigate("/my-account")}
+          >
             <AccountCircleIcon />
           </IconButton>
         </Box>
@@ -130,9 +135,8 @@ const Header = () => {
         {/* Mobile Menu Icon */}
         <IconButton
           edge="start"
-          color="inherit"
           aria-label="menu"
-          sx={{ display: { xs: "block", sm: "none" } }}
+          sx={{ display: { xs: "block", sm: "none" }, color: "#000" }}
           onClick={toggleDrawer(true)}
         >
           <MenuIcon />
@@ -142,23 +146,40 @@ const Header = () => {
       {/* Mobile Drawer */}
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 250 }}
+          sx={{
+            width: 250,
+            backgroundColor: "rgba(255, 255, 255, 0.2)", // Very light white for contrast
+            backdropFilter: "blur(10px)", // Keep glass effect in drawer
+            height: "100vh",
+          }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
           <List>
             <ListItem button onClick={() => navigate("/")}>
-              <ListItemText primary="Home" />
+              <ListItemText
+                primary="Home"
+                sx={{ color: "#000", fontWeight: "bold" }}
+              />
             </ListItem>
             <ListItem button onClick={() => navigate("/products")}>
-              <ListItemText primary="Shop" />
+              <ListItemText
+                primary="Shop"
+                sx={{ color: "#000", fontWeight: "bold" }}
+              />
             </ListItem>
             <ListItem button onClick={() => navigate("/cart")}>
-              <ListItemText primary="Cart" />
+              <ListItemText
+                primary="Cart"
+                sx={{ color: "#000", fontWeight: "bold" }}
+              />
             </ListItem>
             <ListItem button onClick={() => navigate("/login")}>
-              <ListItemText primary="Login" />
+              <ListItemText
+                primary="Login"
+                sx={{ color: "#000", fontWeight: "bold" }}
+              />
             </ListItem>
           </List>
         </Box>

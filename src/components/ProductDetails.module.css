@@ -1,8 +1,14 @@
+/* General Styles */
+body {
+  font-family: "Lato", sans-serif;
+}
+
 .productDetails {
   padding: 30px 0;
   margin-top: 80px;
 }
 
+/* Product Image */
 .mainImage {
   width: 100%;
   height: 650px;
@@ -11,6 +17,7 @@
   margin-bottom: 15px;
 }
 
+/* Thumbnail Images */
 .thumbnailContainer {
   display: flex;
   gap: 10px;
@@ -27,16 +34,17 @@
 }
 
 .thumbnail:hover {
-  border-color: #8a4b2f;
+  border-color: #d7a7aa; /* Accent */
 }
 
 .selectedThumbnail {
   border-color: #000;
 }
 
+/* Product Info */
 .category {
   font-size: 0.9rem;
-  color: gray;
+  color: #7d7d7d; /* Slightly gray for readability */
   text-transform: uppercase;
 }
 
@@ -44,8 +52,10 @@
   font-size: 2rem;
   font-weight: bold;
   margin: 10px 0;
+  color: #d7a7aa; /* Accent */
 }
 
+/* Pricing */
 .priceSection {
   display: flex;
   align-items: center;
@@ -54,15 +64,17 @@
 }
 
 .originalPrice {
-  color: gray;
+  color: #a9a9a9; /* Light gray */
+  text-decoration: line-through;
 }
 
 .price {
-  color: #d9534f;
+  color: black; /* Red */
   font-size: 1.5rem;
   font-weight: bold;
 }
 
+/* Description */
 .description {
   font-size: 0.9rem;
   color: #555;
@@ -70,6 +82,7 @@
   line-height: 1.6;
 }
 
+/* Sizes */
 .sizes {
   margin: 20px 0;
   display: flex;
@@ -81,7 +94,7 @@
   margin: 5px;
   border: 2px solid transparent;
   border-radius: 5px;
-  background-color: #f8f8f8;
+  background-color: #ffebeb; /* Light pink */
   cursor: pointer;
   transition: border-color 0.3s ease;
   font-weight: bold;
@@ -89,13 +102,13 @@
 }
 
 .sizeButton:hover {
-  border-color: #8a4b2f;
+  border-color: #d7a7aa; /* Accent */
   background-color: #f9f9f9;
 }
 
 .selectedSize {
-  border-color: #8a4b2f;
-  background-color: #ddd;
+  border-color: #d7a7aa; /* Accent */
+  background-color: #e8cdcc; /* Secondary */
 }
 
 .disabledSize {
@@ -117,6 +130,7 @@
   font-weight: bold;
 }
 
+/* Quantity Controls */
 .quantitySection {
   display: flex;
   align-items: center;
@@ -131,7 +145,7 @@
 }
 
 .quantityControls button {
-  background-color: #ddd;
+  background-color: #e8cdcc; /* Secondary */
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -139,29 +153,32 @@
 }
 
 .quantityControls button:hover {
-  background-color: #bbb;
+  background-color: #d7a7aa; /* Accent */
 }
 
+/* Buttons */
 .addToCartButton,
 .checkoutButton {
   width: 100%;
-  padding: 10px;
-  background-color: #8a4b2f;
+  padding: 12px;
+  background-color: #d7a7aa; /* Accent */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
   margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .addToCartButton:hover,
 .checkoutButton:hover {
-  background-color: #6c3924;
+  background-color: #b58b8e; /* Darker shade of accent */
 }
 
+/* Size Guide Button */
 .sizeGuideButton {
-  background-color: #8a4b2f;
+  background-color: #d7a7aa; /* Accent */
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -172,9 +189,10 @@
 }
 
 .sizeGuideButton:hover {
-  background-color: #6c3924;
+  background-color: #b58b8e; /* Slightly darker */
 }
 
+/* Size Guide Modal */
 .sizeGuideOverlay {
   position: fixed;
   top: 0;
@@ -203,6 +221,7 @@
   border-radius: 8px;
 }
 
+/* Close Button */
 .closeButton {
   position: absolute;
   top: 10px;

@@ -99,7 +99,7 @@
 .checkoutButton {
   width: 100%;
   padding: 10px;
-  background-color: #8a4b2f;
+  background-color: #d7a7aa; /* Accent */
   color: white;
   border: none;
   border-radius: 4px;
@@ -108,5 +108,5 @@
 }
 
 .checkoutButton:hover {
-  background-color: #6c3924;
+  background-color: #b58b8e;
 }
