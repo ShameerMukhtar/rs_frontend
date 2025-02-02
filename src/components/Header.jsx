@@ -75,7 +75,7 @@ const Header = () => {
           }}
           onClick={() => navigate("/")}
         >
-          Rafia & Sumbal
+          RAFIA AND SUMBAL
         </Box>
 
         {/* Center: Navigation Links */}

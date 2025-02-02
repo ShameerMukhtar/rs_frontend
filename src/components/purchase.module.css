@@ -113,8 +113,8 @@ input:focus, select:focus {
 .submitButton {
   width: 100%;
   padding: 10px;
-  background-color: #8a4b2f; /* Button color */
-  color: white; /* Text color */
+  background-color: #d7a7aa; /* Accent */
+  color: white;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -125,7 +125,7 @@ input:focus, select:focus {
 }
 
 .submitButton:hover {
-  background-color: #6c3924; /* Darker shade on hover */
+  background-color: #b58b8e; /* Darker shade on hover */
 }
 
 .submitButton:active {

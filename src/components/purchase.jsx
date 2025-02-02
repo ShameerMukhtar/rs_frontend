@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Purchase.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Purchase() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     city: "",
@@ -17,15 +19,44 @@ function Purchase() {
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false); // New state for success animation
 
-  // Fetch cart data from sessionStorage on component mount
   useEffect(() => {
     const savedCart = JSON.parse(sessionStorage.getItem("cart")) || [];
     setFormData((prev) => ({
       ...prev,
       cart: savedCart,
     }));
+  }, []);
+
+  // Fetch user address if token exists
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    if (token) {
+      fetch("http://localhost:3000/product/get-address", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.userAddress) {
+            setFormData((prev) => ({
+              ...prev,
+              firstName: data.userAddress.firstName || "",
+              lastName: data.userAddress.lastName || "",
+              address: data.userAddress.address || "",
+              city: data.userAddress.city || "",
+              postalCode: data.userAddress.zipCode || "",
+              phone: data.userAddress.phone || "",
+              email: data.userAddress.email || "",
+            }));
+          }
+        })
+        .catch((error) => console.error("Error fetching address:", error));
+    }
   }, []);
 
   // Handle input changes
@@ -71,7 +102,7 @@ function Purchase() {
       if (response.ok) {
         setMessage("Order placed successfully!");
         sessionStorage.removeItem("cart"); // Clear cart from sessionStorage
-        setOrderPlaced(true); // Trigger success animation
+        navigate("/order-success");
       } else {
         setMessage(`Error: ${data.message}`);
       }
@@ -82,25 +113,6 @@ function Purchase() {
       setLoading(false);
     }
   };
-
-  if (orderPlaced) {
-    // Success Screen
-    return (
-      <div className={styles.successContainer}>
-        <div className={styles.successAnimation}>
-          <h2>🎉 Order Placed Successfully! 🎉</h2>
-        </div>
-        <button
-          className={styles.backButton}
-          onClick={() => {
-            window.location.href = "/"; // Redirect to home
-          }}
-        >
-          Back to Home
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.container}>
@@ -126,12 +138,13 @@ function Purchase() {
 
         <h2>Delivery</h2>
         <label htmlFor="city">City</label>
-        <select id="city" value={formData.city} onChange={handleChange}>
-          <option value="">Select city from dropdown</option>
-          <option value="Karachi">Karachi</option>
-          <option value="Lahore">Lahore</option>
-          <option value="Islamabad">Islamabad</option>
-        </select>
+        <input
+          type="text"
+          id="city"
+          placeholder="Enter your city"
+          value={formData.city}
+          onChange={handleChange}
+        />
         <label htmlFor="country">Country/Region</label>
         <input type="text" id="country" value="Pakistan" disabled />
         <label htmlFor="firstName">First Name</label>

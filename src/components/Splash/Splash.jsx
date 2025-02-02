@@ -1,9 +1,92 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Splash = () => {
-  const [city, setCity] = useState("Islamabad");
   const navigate = useNavigate();
+  const cities = [
+    "Islamabad",
+    "Lahore",
+    "Karachi",
+    "Peshawar",
+    "Quetta",
+    "Rawalpindi",
+    "Faisalabad",
+    "Multan",
+    "Gujranwala",
+    "Sialkot",
+    "Bahawalpur",
+    "Sargodha",
+    "Sukkur",
+    "Larkana",
+    "Sheikhupura",
+    "Jhang",
+    "Mardan",
+    "Gujrat",
+    "Kasur",
+    "Dera Ghazi Khan",
+    "Okara",
+    "Mirpur Khas",
+    "Nawabshah",
+    "Mingora",
+    "Kotri",
+    "Rahim Yar Khan",
+    "Bannu",
+    "Abbottabad",
+    "Zhob",
+    "Dadu",
+    "Chiniot",
+    "Khuzdar",
+    "Kohat",
+    "Muzaffargarh",
+    "Sahiwal",
+    "Jacobabad",
+    "Shikarpur",
+    "Jhelum",
+    "Ghotki",
+    "Mandi Bahauddin",
+    "Tando Allahyar",
+    "Vehari",
+    "Attock",
+    "Nowshera",
+    "Khairpur",
+    "Swabi",
+    "Kandhkot",
+    "Dera Ismail Khan",
+    "Thatta",
+    "Chaman",
+    "Lodhran",
+    "Turbat",
+    "Mansehra",
+    "Charsadda",
+    "Hafizabad",
+    "Badin",
+    "Layyah",
+    "Hangu",
+    "Tando Adam",
+    "Gojra",
+    "Sanghar",
+    "Pakpattan",
+    "Kharian",
+    "Khanewal",
+    "Bhakkar",
+    "Shahdadkot",
+    "Bhalwal",
+    "Mianwali",
+    "Tando Muhammad Khan",
+    "Jaranwala",
+    "Muzaffarabad",
+    "Mirpur",
+    "Gilgit",
+    "Skardu",
+  ];
+
+  const [city, setCity] = useState(localStorage.getItem("selectedCity") || "");
+
+  useEffect(() => {
+    // Save selected city to localStorage
+    localStorage.setItem("selectedCity", city);
+  }, [city]);
+
   const handleCityChange = (event) => {
     setCity(event.target.value);
   };
@@ -49,6 +132,7 @@ const Splash = () => {
           borderRadius: "12px",
           textAlign: "center",
           zIndex: 1,
+          width: "300px",
         }}
       >
         <select
@@ -58,20 +142,38 @@ const Splash = () => {
             padding: "10px",
             fontSize: "16px",
             borderRadius: "8px",
-            // border: "1px solid #D7A7AA",
-            marginBottom: "20px",
             width: "100%",
-            border: city === "" ? "#D7A7AA" : "#D7A7AA", // Default color if no selection
+            border: "1px solid #D7A7AA",
+            marginBottom: "10px",
           }}
         >
           <option value="" disabled>
             Select Your City
           </option>
-          <option value="Islamabad">Islamabad</option>
-          <option value="Lahore">Lahore</option>
-          <option value="Karachi">Karachi</option>
-          <option value="Peshawar">Peshawar</option>
+          {cities.map((cityName, index) => (
+            <option key={index} value={cityName}>
+              {cityName}
+            </option>
+          ))}
+          <option value="other">Other (Enter Manually)</option>
         </select>
+
+        {city === "other" && (
+          <input
+            type="text"
+            placeholder="Enter your city"
+            value={city}
+            onChange={handleCityChange}
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "8px",
+              border: "1px solid #D7A7AA",
+              marginBottom: "10px",
+              fontSize: "16px",
+            }}
+          />
+        )}
 
         <button
           style={{
@@ -81,6 +183,7 @@ const Splash = () => {
             border: "1px solid #D7A7AA",
             backgroundColor: "#D7A7AA",
             cursor: "pointer",
+            width: "100%",
           }}
           onClick={() => navigate("/landingpage")}
         >

@@ -1,0 +1,112 @@
+/* Centered Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f7f5f2;
+  font-family: "Lato", sans-serif;
+}
+
+/* White Box */
+.successBox {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Checkmark Animation */
+.checkmarkContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* SVG Checkmark */
+.checkmark {
+  width: 80px;
+  height: 80px;
+  stroke: #28a745;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.circle {
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  animation: circleAnimation 0.6s ease forwards;
+}
+
+.check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkAnimation 0.4s ease 0.6s forwards;
+}
+
+/* Success Text */
+.successText {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Message Text */
+.message {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Button */
+.homeButton {
+  background: #d7a7aa;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.homeButton:hover {
+  background: #b5898d;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes circleAnimation {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes checkAnimation {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

@@ -13,7 +13,7 @@ const CardItem = ({ image, text }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        cursor:"pointer",
+        cursor: "pointer",
         transition: "transform 0.3s ease-in-out", // Add smooth scale effect
         "&:hover": {
           transform: "scale(1.05)", // Scale effect on hover
@@ -42,7 +42,6 @@ const CardItem = ({ image, text }) => {
           zIndex: 1, // Ensure text is above the overlay
           fontWeight: "bold",
           textTransform: "uppercase",
-          
         }}
       >
         {text}
@@ -55,15 +54,15 @@ const ResponsiveCardGrid = () => {
   const cards = [
     {
       image: "/images/product.svg", // Replace with your image
-      text: "Formal Woman",
+      text: "Best Quality",
     },
     {
       image: "/images/product.svg", // Replace with your image
-      text: "Most Seller",
+      text: "Elegant Fashion",
     },
     {
       image: "/images/product.svg", // Replace with your image
-      text: "Casual Style",
+      text: "Best Designs",
     },
   ];
 
@@ -112,7 +111,7 @@ const ResponsiveCardGrid = () => {
         xs={12}
         md={6}
         sx={{
-          height: { xs: "350px", md: "100%" , paddingBottom:"16px" , }, // 350px on small screens
+          height: { xs: "350px", md: "100%", paddingBottom: "16px" }, // 350px on small screens
         }}
       >
         <CardItem image={cards[2].image} text={cards[2].text} />

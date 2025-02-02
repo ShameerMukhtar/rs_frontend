@@ -14,6 +14,8 @@ import Purchase from "./components/purchase";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgetPassword";
 import MyAccount from "./components/MyAccount";
+import Blogs from "./components/Blogs/Blogs";
+import OrderSuccess from "./components/OrderSuccess";
 const App = () => {
   return (
     <>
@@ -39,6 +41,8 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forget-password" element={<ForgotPassword />} />
           <Route path="/my-account" element={<MyAccount />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
           {/* <Route path="/register" element={<Register />} /> */}
         </Routes>
       </Router>

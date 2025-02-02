@@ -168,6 +168,13 @@ const Cart = () => {
               >
                 PROCEED TO CHECKOUT
               </button>
+              {/* ✅ Continue Shopping Button */}
+              <button
+                className={styles.continueShoppingButton}
+                onClick={() => navigate("/products")}
+              >
+                CONTINUE SHOPPING
+              </button>
             </div>
           </div>
         )}

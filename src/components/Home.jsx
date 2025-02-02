@@ -260,7 +260,7 @@ function App() {
                       <Box
                         sx={{
                           width: "80px",
-                          height: "80px",
+                          height: "75px",
                           borderRadius: "50%",
                           backgroundColor: "#D7A7AA",
                           display: "flex",

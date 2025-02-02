@@ -131,7 +131,58 @@ const ProductDetails = () => {
   };
 
   const handleCheckout = () => {
-    navigate("/purchase");
+    if (!selectedSize) {
+      setErrorMessage("Please select a size before adding to cart.");
+      return;
+    }
+
+    const stock =
+      selectedSize === "S"
+        ? product.smallQuantity
+        : selectedSize === "M"
+        ? product.mediumQuantity
+        : product.largeQuantity;
+
+    if (quantity > stock) {
+      setErrorMessage(`Only ${stock} items available in this size.`);
+      return;
+    }
+
+    const cartItem = {
+      id: product._id,
+      title: product.title,
+      price: product.price,
+      size: selectedSize,
+      largeQuantity: product.largeQuantity,
+      mediumQuantity: product.mediumQuantity,
+      smallQuantity: product.smallQuantity,
+      quantity,
+      image: product.images,
+    };
+
+    const existingItemIndex = cart.findIndex(
+      (item) => item.id === cartItem.id && item.size === selectedSize
+    );
+
+    let updatedCart;
+
+    if (existingItemIndex !== -1) {
+      updatedCart = [...cart];
+      updatedCart[existingItemIndex].quantity += quantity;
+    } else {
+      updatedCart = [...cart, cartItem];
+    }
+
+    setCart(updatedCart);
+    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+    setErrorMessage(""); // ✅ Clear error message
+    setSelectedSize(null); // ✅ Reset selected size
+    setQuantity(1); // ✅ Reset quantity
+
+    // ✅ Use setTimeout to ensure navigation happens correctly
+    setTimeout(() => {
+      navigate("/purchase");
+    }, 200); // Short delay ensures state updates properly
   };
 
   if (!product) return <p>Loading...</p>;

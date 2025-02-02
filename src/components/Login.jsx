@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css"; // Ensure custom styling is applied
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ const Login = () => {
 
   return (
     <div className="container-fluid">
+      <Header></Header>
       <div className="row login-container">
         {/* Left Side Image */}
         <div className="col-md-6 image-side"></div>
@@ -82,12 +85,6 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <ul className="password-criteria list-unstyled">
-                <li>✔ Minimum 8 characters</li>
-                <li>✔ Must contain at least 1 number</li>
-                <li>✔ Must contain at least 1 capital case and 1 small case</li>
-                <li>✔ Must contain at least 1 symbol</li>
-              </ul>
             </div>
             {errorMessage && (
               <div className="alert alert-danger">{errorMessage}</div>
@@ -121,6 +118,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };
