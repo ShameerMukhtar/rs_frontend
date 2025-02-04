@@ -29,7 +29,7 @@ const MyAccount = () => {
   const verifyUser = async (token) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/auth/verify?token=${token}`,
+        `${import.meta.env.VITE_API_URL}/auth/verify?token=${token}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@ const MyAccount = () => {
   const fetchUserAddresses = async (token) => {
     try {
       const response = await fetch(
-        "http://localhost:3000/product/get-user-addresses",
+        `${import.meta.env.VITE_API_URL}/product/get-user-addresses`,
         {
           method: "GET",
           headers: {

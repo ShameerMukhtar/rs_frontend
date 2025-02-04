@@ -8,7 +8,7 @@ const BlogsTab = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/blogs/get-all-blogs"
+          `${import.meta.env.VITE_API_URL}/blogs/get-all-blogs`
         );
         const data = await response.json();
         setBlogs(data.blogs);

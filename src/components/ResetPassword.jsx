@@ -48,7 +48,9 @@ const ResetPassword = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/auth/reset-password?email=${encodeURIComponent(
+        `${
+          import.meta.env.VITE_API_URL
+        }/auth/reset-password?email=${encodeURIComponent(
           email
         )}&token=${encodeURIComponent(token)}`,
         {

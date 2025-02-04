@@ -14,12 +14,13 @@ const ProductDetails = () => {
   const [mainImage, setMainImage] = useState(null);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  console.log("i am using", import.meta.env.VITE_API_URL);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/product/product-details/${id}`
+          `${import.meta.env.VITE_API_URL}/product/product-details/${id}`
         );
         const data = await response.json();
         setProduct(data.product);

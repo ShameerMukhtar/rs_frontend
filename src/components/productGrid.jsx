@@ -14,7 +14,7 @@ const ProductGrid = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/product/get-all-products"
+          `${import.meta.env.VITE_API_URL}/product/get-all-products`
         );
         const data = await response.json();
         setProducts(data.products); // Assuming API response has a "products" array
