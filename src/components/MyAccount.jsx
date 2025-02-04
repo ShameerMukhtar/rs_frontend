@@ -98,7 +98,7 @@ const MyAccount = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <br />
       <br />
       <div className="container mt-5">
@@ -117,8 +117,14 @@ const MyAccount = () => {
           </div>
         ) : (
           <>
+            {/* My Orders Section */}
             <div className="card mb-4">
-              <div className="card-header bg-primary text-white">
+              <div
+                className="card-header text-white"
+                style={{
+                  backgroundColor: "#D7A7AA", // Matching palette color
+                }}
+              >
                 <h5 className="mb-0">My Orders</h5>
               </div>
               <div className="card-body">
@@ -137,8 +143,16 @@ const MyAccount = () => {
               </div>
             </div>
 
-            <div className="card">
-              <div className="card-header bg-success text-white">
+            {/* My Addresses Section */}
+            <div className="card mb-5">
+              {" "}
+              {/* ✅ Added margin-bottom to avoid sticking to the footer */}
+              <div
+                className="card-header text-white"
+                style={{
+                  backgroundColor: "#D7A7AA", // Same color as "My Orders"
+                }}
+              >
                 <h5 className="mb-0">My Addresses</h5>
               </div>
               <div className="card-body">

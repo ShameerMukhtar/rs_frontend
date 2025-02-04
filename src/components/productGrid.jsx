@@ -51,17 +51,18 @@ const ProductGrid = () => {
       {/* Filter Section */}
       <div className={styles.filterSection}>
         <button onClick={() => handleFilter("all")}>All Products</button>
-        <button onClick={() => handleFilter("summer collection")}>
-          Summer Collection
-        </button>
-        <button onClick={() => handleFilter("winter collection")}>
-          Winter Collection
-        </button>
         <button onClick={() => handleFilter("spring collection")}>
           Spring Collection
         </button>
+        <button onClick={() => handleFilter("summer collection")}>
+          Summer Collection
+        </button>
+
         <button onClick={() => handleFilter("fall collection")}>
           Fall Collection
+        </button>
+        <button onClick={() => handleFilter("winter collection")}>
+          Winter Collection
         </button>
       </div>
 

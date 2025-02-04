@@ -46,13 +46,13 @@ const Header = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "transparent", // Fully transparent
-        backdropFilter: "blur(12px)", // Strong blur effect (glass effect)
+        backgroundColor: "transparent",
+        backdropFilter: "blur(12px)",
         boxShadow: "none",
         zIndex: "100",
         transition: "top 0.3s",
         top: visible ? 0 : "-80px",
-        color: "#000", // Black text/icons
+        color: "#000",
       }}
     >
       <Toolbar
@@ -63,7 +63,7 @@ const Header = () => {
           padding: "10px 20px",
         }}
       >
-        {/* Left Side: Logo */}
+        {/* Left Side: Logo (Always Stays Left) */}
         <Box
           sx={{
             fontFamily: "Futura",
@@ -71,7 +71,10 @@ const Header = () => {
             fontSize: "1.5rem",
             letterSpacing: "2px",
             cursor: "pointer",
-            color: "#000", // Black text
+            color: "#000",
+            flex: "1", // Ensure it stays on the left
+            textAlign: "left",
+            whiteSpace: "nowrap", // Prevent wrapping
           }}
           onClick={() => navigate("/")}
         >
@@ -87,6 +90,8 @@ const Header = () => {
             fontSize: "0.9rem",
             fontWeight: "bold",
             color: "#000",
+            flex: "1", // Takes equal space for center alignment
+            justifyContent: "center", // Keep it exactly in the center
           }}
         >
           <span style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
@@ -100,10 +105,17 @@ const Header = () => {
           </span>
         </Box>
 
-        {/* Right Side: Icons */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        {/* Right Side: Icons (Cart & Profile) */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flex: "1",
+            justifyContent: "flex-end",
+          }}
+        >
           <IconButton
-            sx={{ marginRight: "1rem", color: "#000" }} // Black icon
+            sx={{ marginRight: "1rem", color: "#000" }}
             onClick={() => navigate("/cart")}
           >
             <Badge
@@ -130,17 +142,24 @@ const Header = () => {
           >
             <AccountCircleIcon />
           </IconButton>
-        </Box>
 
-        {/* Mobile Menu Icon */}
-        <IconButton
-          edge="start"
-          aria-label="menu"
-          sx={{ display: { xs: "block", sm: "none" }, color: "#000" }}
-          onClick={toggleDrawer(true)}
-        >
-          <MenuIcon />
-        </IconButton>
+          {/* Mobile Menu Icon */}
+          <IconButton
+            edge="start"
+            aria-label="menu"
+            sx={{
+              display: { xs: "block", sm: "none" },
+              color: "#000",
+              position: "relative", // Ensures it moves within toolbar
+              top: "-3px",
+              right: "-8px",
+              // Moves it up slightly
+            }}
+            onClick={toggleDrawer(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Box>
       </Toolbar>
 
       {/* Mobile Drawer */}
@@ -148,8 +167,8 @@ const Header = () => {
         <Box
           sx={{
             width: 250,
-            backgroundColor: "rgba(255, 255, 255, 0.2)", // Very light white for contrast
-            backdropFilter: "blur(10px)", // Keep glass effect in drawer
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            backdropFilter: "blur(10px)",
             height: "100vh",
           }}
           role="presentation"

@@ -16,6 +16,7 @@ import ForgotPassword from "./components/ForgetPassword";
 import MyAccount from "./components/MyAccount";
 import Blogs from "./components/Blogs/Blogs";
 import OrderSuccess from "./components/OrderSuccess";
+import ResetPassword from "./components/ResetPassword";
 const App = () => {
   return (
     <>
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forget-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/my-account" element={<MyAccount />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/order-success" element={<OrderSuccess />} />
