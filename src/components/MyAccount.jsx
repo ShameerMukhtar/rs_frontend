@@ -13,7 +13,7 @@ const MyAccount = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const tokenFromParams = searchParams.get("token");
-    const storedToken = sessionStorage.getItem("token");
+    const storedToken = localStorage.getItem("token");
 
     if (tokenFromParams) {
       verifyUser(tokenFromParams);
@@ -39,7 +39,7 @@ const MyAccount = () => {
       const data = await response.json();
 
       if (response.ok) {
-        sessionStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.token);
         fetchUserOrders(data.token);
         fetchUserAddresses(data.token);
       } else {
@@ -91,8 +91,8 @@ const MyAccount = () => {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 

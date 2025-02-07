@@ -6,9 +6,9 @@ const Cart = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
 
-  // Fetch cart data from sessionStorage
+  // Fetch cart data from localStorage
   useEffect(() => {
-    const storedCart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(storedCart);
   }, []);
 
@@ -18,7 +18,7 @@ const Cart = () => {
       (item) => !(item.id === itemId && item.size === itemSize)
     );
     setCartItems(updatedCart);
-    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   // Handle updating the quantity with stock limit check
@@ -43,7 +43,7 @@ const Cart = () => {
     });
 
     setCartItems(updatedCart);
-    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   // Handle adding a note to a specific cart item
@@ -56,7 +56,7 @@ const Cart = () => {
     });
 
     setCartItems(updatedCart);
-    sessionStorage.setItem("cart", JSON.stringify(updatedCart)); // Save notes in sessionStorage
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save notes in localStorage
   };
 
   // Calculate the subtotal and total dynamically

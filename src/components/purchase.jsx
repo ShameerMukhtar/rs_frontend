@@ -21,7 +21,7 @@ function Purchase() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const savedCart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setFormData((prev) => ({
       ...prev,
       cart: savedCart,
@@ -30,7 +30,7 @@ function Purchase() {
 
   // Fetch user address if token exists
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     if (token) {
       fetch("http://localhost:3000/product/get-address", {
@@ -74,7 +74,7 @@ function Purchase() {
     setLoading(true);
     setMessage("");
 
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const payload = {
       cart: formData.cart,
       address: formData.address,
@@ -101,7 +101,7 @@ function Purchase() {
 
       if (response.ok) {
         setMessage("Order placed successfully!");
-        sessionStorage.removeItem("cart"); // Clear cart from sessionStorage
+        localStorage.removeItem("cart"); // Clear cart from localStorage
         navigate("/order-success");
       } else {
         setMessage(`Error: ${data.message}`);

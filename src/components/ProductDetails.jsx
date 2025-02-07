@@ -34,7 +34,7 @@ const ProductDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    const savedCart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
   }, []);
 
@@ -120,7 +120,7 @@ const ProductDetails = () => {
     }
 
     setCart(updatedCart);
-    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
     setErrorMessage(""); // ✅ Clear error message
     setSelectedSize(null); // ✅ Reset selected size
     setQuantity(1); // ✅ Reset quantity
@@ -175,7 +175,7 @@ const ProductDetails = () => {
     }
 
     setCart(updatedCart);
-    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
     setErrorMessage(""); // ✅ Clear error message
     setSelectedSize(null); // ✅ Reset selected size
     setQuantity(1); // ✅ Reset quantity

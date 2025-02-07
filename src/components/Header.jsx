@@ -34,7 +34,7 @@ const Header = () => {
   }, [prevScrollPos]);
 
   useEffect(() => {
-    const storedCart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCount(storedCart.length);
   }, []);
 

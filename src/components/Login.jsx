@@ -17,22 +17,25 @@ const Login = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
 
-        // Save token and user info in sessionStorage
-        sessionStorage.setItem("token", data.token);
+        // Save token and user info in localStorage
+        localStorage.setItem("token", data.token);
 
         navigate("/my-account"); // Redirect to dashboard or another page
       } else {
