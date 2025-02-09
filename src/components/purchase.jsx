@@ -12,7 +12,7 @@ function Purchase() {
     address: "",
     postalCode: "",
     phone: "",
-    paymentMethod: "cash",
+    paymentMethod: "COD", // Default to COD
     notifyUser: false,
     cart: [],
   });
@@ -84,6 +84,7 @@ function Purchase() {
       email: formData.email,
       city: formData.city,
       phone: formData.phone,
+      paymentMethod: formData.paymentMethod, // Pass the selected payment method
       notifyUser: formData.notifyUser,
     };
 
@@ -193,12 +194,12 @@ function Purchase() {
             <input
               type="radio"
               name="paymentMethod"
-              value="cash"
-              checked={formData.paymentMethod === "cash"}
+              value="COD"
+              checked={formData.paymentMethod === "COD"}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  paymentMethod: e.target.value,
+                  paymentMethod: "COD",
                 }))
               }
             />
