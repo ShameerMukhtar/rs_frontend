@@ -33,7 +33,7 @@ function Purchase() {
     const token = localStorage.getItem("token");
 
     if (token) {
-      fetch("http://localhost:3000/product/get-address", {
+      fetch(`${import.meta.env.VITE_API_URL}/product/get-address`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -89,14 +89,17 @@ function Purchase() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/product/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token && { Authorization: `Bearer ${token}` }),
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/product/checkout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` }),
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
 

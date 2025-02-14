@@ -55,7 +55,7 @@ const MyAccount = () => {
   const fetchUserOrders = async (token) => {
     try {
       const response = await fetch(
-        "http://localhost:3000/product/get-user-orders",
+        `${import.meta.env.VITE_API_URL}/product/get-user-orders`,
         {
           method: "GET",
           headers: {

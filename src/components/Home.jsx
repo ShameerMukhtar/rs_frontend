@@ -65,7 +65,7 @@ function App() {
     const fetchLatestProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/product/latest-product"
+          `${import.meta.env.VITE_API_URL}/product/latest-product`
         );
         const data = await response.json();
         setProducts(data.products); // Store latest products in state
